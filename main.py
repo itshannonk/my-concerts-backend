@@ -43,6 +43,31 @@ def artists_with_shows(concerts: json) -> list:
     """
     shows = []
     for concert in concerts:
-        if concert['pages']['totalPages'] > 0:
+        if len(concerts) > 0:
             shows.append(concert)
     return shows
+
+
+# TODO: Create a separate testing file for this
+def get_all_concerts_test(request: dict):
+    """ Return a list of all concerts in the playlist with the given id.
+
+    :param request: flask.Request object.
+    :return: A json object containing the concerts of all artists in the playlist.
+    """
+    playlist_id = request['playlist_id']
+    city = request['city']
+
+    # Should it return a list of json objects?
+    artists = playlist_data.get_artist_names(playlist_id)
+    concerts = []
+
+    for artist in artists:
+        concerts.append(concert_data.get_event_key_city(artist, city))
+
+    return {'concerts': artists_with_shows(concerts)}
+
+
+if __name__ == '__main__':
+    # Test the HTTP endpoints here
+    print(get_all_concerts_test({'playlist_id': '37i9dQZF1DWYkaDif7Ztbp', 'city': 'Toronto'}))
