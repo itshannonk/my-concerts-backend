@@ -1,10 +1,15 @@
 """
 This is the file in which we will test the ticketmaster API.
 """
-import ticketpy
+import ticketpy, json
+import requests
 API_KEY = 'k2zkHLSGtq9fYAsPhysiijSpxn3GGkNh'
 
-tm_client = ticketpy.ApiClient(API_KEY)
+URL = 'http://app.ticketmaster.com//discovery/v2/events.json?keyword=Dijon&apikey=k2zkHLSGtq9fYAsPhysiijSpxn3GGkNh'
+r = requests.get(URL)
+data = r.json()
+print(data)
+"""tm_client = ticketpy.ApiClient(API_KEY)
 
 pages = tm_client.events.find(
     country_code='CA',
@@ -12,6 +17,11 @@ pages = tm_client.events.find(
     end_date_time='2020-02-21T20:00:00Z',
     keyword='Dijon'
 )
+
+# Convert pages to json object
+print(json.dumps(pages.__dict__, default=lambda o: o.__dict__, check_circular=False))
+
+# print(pages.json)
 for page in pages:
     # print(page)
     for event in page:
@@ -21,5 +31,5 @@ for page in pages:
         print(event.venues)
         print('CLASSIFICATIONS ----------------------------------')
         print(event.classifications)
-        print('')
+        print('')"""
 

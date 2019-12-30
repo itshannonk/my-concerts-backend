@@ -39,7 +39,7 @@ accessToken = 'BQCL3z6IDTYP353oNWAkqNHosp8kK5cUBLFdlRkrlUfs4lSuUQlbskLDADtol' \
               'asdC-d2juj64WOBRiU6hUeN9cRrFH7Q-L9cheiYw'
 
 URL = "https://api.spotify.com/v1/playlists/" + playlist_id + "/tracks"
-PARAMS = {'playlist_id': playlist_id, 'tracks': 'tracks'}
+PARAMS = {'playlist_id': playlist_id}
 r = requests.get(url=URL, params=PARAMS,  headers={
                'Authorization': 'Bearer ' + accessToken
             })
