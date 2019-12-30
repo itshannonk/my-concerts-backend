@@ -30,20 +30,33 @@ The following functions may be helpful:
     3. user_playlists(user, limit=50, offset=0)
 """
 import requests
-accessToken = 'BQAC4ZHP2F7U79-rpaUPY5_s-v2VXVTamnnOo9WGZJTva-8Jk7OjbU0DnX' \
-              'YA6cY0pJv0e0phHyjxCraBpnI3kK3XVVkUEj4HnT5yfFYfRutTE2z4LkGD' \
-              'emj39OXtHU3fRWTmwpsJyF3zzdOMvkonNzo6oJ-faeDvxQ'
+# Get playlist URL
+playlist = input("Insert playlist URL: ")
+playlist_id = playlist[34:playlist.find('?si=')]
 
-URL = "https://api.spotify.com/v1/playlists/7uiNxgG7eIUaRbYRDrPoIV/tracks"
-playlist_id = '7uiNxgG7eIUaRbYRDrPoIV'
+accessToken = 'BQCL3z6IDTYP353oNWAkqNHosp8kK5cUBLFdlRkrlUfs4lSuUQlbskLDADtol' \
+              'nf97ZSD_nQILrzLbsABeM3a3Py0In2WUadMcgoWP-GI0IgBRhHUY86MOklQZP' \
+              'asdC-d2juj64WOBRiU6hUeN9cRrFH7Q-L9cheiYw'
+
+URL = "https://api.spotify.com/v1/playlists/" + playlist_id + "/tracks"
 PARAMS = {'playlist_id': playlist_id, 'tracks': 'tracks'}
 r = requests.get(url=URL, params=PARAMS,  headers={
                'Authorization': 'Bearer ' + accessToken
             })
 data = r.json()
-for item in data['items']:
-    # print(item['track']['name'])
-    print(item['track'])
+if 'error' in data:
+    print(data['error']['message'])
+else:
+    for item in data['items']:
+        # print(item['track']['name'])
+        artists = []
+        for artist in item['track']['artists']:
+            artists.append(artist['name'])
+        # print(item['track'])
+        print(item['track']['name'] + " by " + ", ".join(artists))
 
 if __name__ == "__main__":
-    print("hey!")
+    print("done")
+    # playlist = input("Insert playlist URL: ")
+    # playlist_id = playlist[34:playlist.find('?si=')]
+    # print("hey!")
