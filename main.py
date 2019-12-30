@@ -20,7 +20,7 @@ def get_all_concerts(request: Request):
 
     for artist in artists:
         concerts.append(concert_data.get_event_key_city(artist, city))
-    return concerts
+    return {'concerts': concerts}
 
 
 def get_concert(request: Request):
