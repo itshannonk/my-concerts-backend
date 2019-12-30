@@ -4,7 +4,20 @@ All the Spotify stuff is handled in here.
 import requests
 
 URL = "https://api.spotify.com/v1/playlists/"
-ACC_TOKEN = 'be1f18ddbbb84db996b23f1222c33d17 f0b5f383f0294a30835adfae60119dca'
+CLIENT_ID = 'be1f18ddbbb84db996b23f1222c33d17'
+CLIENT_SECRET = 'f0b5f383f0294a30835adfae60119dca'
+
+
+def get_new_access_token() -> str:
+    """ Return new credit credential access token.
+
+    :return: Access token.
+    """
+    body_params = {'grant_type': 'client_credentials'}
+    url = 'https://accounts.spotify.com/api/token'
+    response = requests.post(url, data=body_params,
+                             auth=(CLIENT_ID, CLIENT_SECRET))
+    return response.json()['access_token']
 
 
 def get_artist_names(playlist_id: str) -> list:
@@ -15,11 +28,10 @@ def get_artist_names(playlist_id: str) -> list:
     """
     url = URL + playlist_id + '/tracks'
     params = {'playlist_id': playlist_id,
-              'client_id': 'be1f18ddbbb84db996b23f1222c33d17',
-              'client_secret': 'f0b5f383f0294a30835adfae60119dca'}
-    response = requests.get(url=url, params=params,
-                            headers={'Authorization':
-                                     'Bearer ' + ACC_TOKEN}).json()
+              'client_id': CLIENT_ID,
+              'client_secret': CLIENT_SECRET}
+    headers = {'Authorization': 'Bearer ' + get_new_access_token()}
+    response = requests.get(url=url, params=params, headers=headers).json()
 
     if 'error' in response:
         return response['error']['message']
@@ -35,3 +47,4 @@ def get_artist_names(playlist_id: str) -> list:
 
 if __name__ == '__main__':
     print(get_artist_names('4LNYEMOoROyKkNtSGbHqef'))
+    # print(get_new_access_token())
