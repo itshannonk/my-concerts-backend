@@ -1,2 +1,4 @@
+requests
 spotipy
 ticketpy
+flask

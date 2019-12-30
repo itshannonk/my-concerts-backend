@@ -15,5 +15,11 @@ pages = tm_client.events.find(
 for page in pages:
     # print(page)
     for event in page:
+        print('EVENT --------------------------------------------')
         print(event)
+        print('VENUE --------------------------------------------')
+        print(event.venues)
+        print('CLASSIFICATIONS ----------------------------------')
+        print(event.classifications)
+        print('')
 
