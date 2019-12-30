@@ -4,8 +4,8 @@ This is the file in which we will test the Spotify API.
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-client_credentials_manager = SpotifyClientCredentials("be1f18ddbbb84db996b23f1222c33d17", "f0b5f383f0294a30835adfae60119dca")
-spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+# client_credentials_manager = SpotifyClientCredentials("be1f18ddbbb84db996b23f1222c33d17", "f0b5f383f0294a30835adfae60119dca")
+# spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 """playlists = spotify.user_playlists('spotify')
 while playlists:
@@ -20,7 +20,7 @@ while playlists:
 # results = spotify.search(q='artist:' + "Summer Salt", type='artist')
 # print(results['artists']['items'][0]['name'])
 
-results = spotify.search(q='playlist:' + 'indie or something', type='playlist')
+# results = spotify.search(q='playlist:' + 'indie or something', type='playlist')
 # print(results)
 
 """
@@ -30,7 +30,8 @@ The following functions may be helpful:
     3. user_playlists(user, limit=50, offset=0)
 """
 import requests
-# Get playlist URL
+
+"""# Get playlist URL
 playlist = input("Insert playlist URL: ")
 playlist_id = playlist[34:playlist.find('?si=')]
 
@@ -53,7 +54,36 @@ else:
         for artist in item['track']['artists']:
             artists.append(artist['name'])
         # print(item['track'])
-        print(item['track']['name'] + " by " + ", ".join(artists))
+        print(item['track']['name'] + " by " + ", ".join(artists))"""
+
+# POST REQUEST -----------------------------------------------------------------
+"""client = 'be1f18ddbbb84db996b23f1222c33d17:f0b5f383f0294a30835adfae60119dca'
+API_ENDPOINT = 'https://accounts.spotify.com/api/token'
+
+data = {'grant_type': 'client_credentials'}
+headers = {'Authorization': 'Basic ' + client}
+r = requests.post(url=API_ENDPOINT, data=data,  headers=headers)
+
+# response = requests.post(url=API_ENDPOINT, data=data)
+print(r.text)"""
+client_id = 'be1f18ddbbb84db996b23f1222c33d17'
+client_secret = 'f0b5f383f0294a30835adfae60119dca'
+grant_type = 'client_credentials'
+
+body_params = {'grant_type': grant_type}
+url = 'https://accounts.spotify.com/api/token'
+response = requests.post(url, data=body_params, auth=(client_id, client_secret))
+print(response.json())
+
+# AUTHENTICATION REQUEST -------------------------------------------------------
+"""URL = 'https://accounts.spotify.com/authorize'
+PARAMS = {'client_id': 'be1f18ddbbb84db996b23f1222c33d17',
+          'response_type': 'code',
+          'redirect_uri': 'https://github.com/itshannonk/csc207-project-backend'
+          }
+r = requests.get(URL, PARAMS)
+print(r.text)"""
+
 
 if __name__ == "__main__":
     print("done")

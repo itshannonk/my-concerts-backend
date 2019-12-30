@@ -4,7 +4,7 @@ All the Spotify stuff is handled in here.
 import requests
 
 URL = "https://api.spotify.com/v1/playlists/"
-ACC_TOKEN = 'BQCIsfp8kNFk7ZaEKfGH5pbsEZ7KvY6RhHmgGjq-SuJYhwQB5APGE_1UZIPSFRvNlYqoH9Z4ll-WekJv3dGCPb8G-jPE7GsmOQ-a9VE4jyTT1AjSx3KEG3VHJ9rU4r5efo3x10AfwEmjbdnvDKDgvSuhNiD7-mg4lQ'
+ACC_TOKEN = 'be1f18ddbbb84db996b23f1222c33d17 f0b5f383f0294a30835adfae60119dca'
 
 
 def get_artist_names(playlist_id: str) -> list:
@@ -14,7 +14,9 @@ def get_artist_names(playlist_id: str) -> list:
     :return: A list of artist names.
     """
     url = URL + playlist_id + '/tracks'
-    params = {'playlist_id': playlist_id}
+    params = {'playlist_id': playlist_id,
+              'client_id': 'be1f18ddbbb84db996b23f1222c33d17',
+              'client_secret': 'f0b5f383f0294a30835adfae60119dca'}
     response = requests.get(url=url, params=params,
                             headers={'Authorization':
                                      'Bearer ' + ACC_TOKEN}).json()
