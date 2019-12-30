@@ -43,6 +43,6 @@ def artists_with_shows(concerts: json) -> list:
     """
     shows = []
     for concert in concerts:
-        if len(concert) > 2:
+        if concert['pages']['totalPages'] > 0:
             shows.append(concert)
     return shows
