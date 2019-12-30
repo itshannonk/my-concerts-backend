@@ -66,14 +66,17 @@ r = requests.post(url=API_ENDPOINT, data=data,  headers=headers)
 
 # response = requests.post(url=API_ENDPOINT, data=data)
 print(r.text)"""
-client_id = 'be1f18ddbbb84db996b23f1222c33d17'
+
+
+# THIS ONE WORKS!! -------------------------------------------------------------
+"""client_id = 'be1f18ddbbb84db996b23f1222c33d17'
 client_secret = 'f0b5f383f0294a30835adfae60119dca'
 grant_type = 'client_credentials'
 
 body_params = {'grant_type': grant_type}
 url = 'https://accounts.spotify.com/api/token'
 response = requests.post(url, data=body_params, auth=(client_id, client_secret))
-print(response.json())
+print(response.json())"""
 
 # AUTHENTICATION REQUEST -------------------------------------------------------
 """URL = 'https://accounts.spotify.com/authorize'
@@ -83,6 +86,13 @@ PARAMS = {'client_id': 'be1f18ddbbb84db996b23f1222c33d17',
           }
 r = requests.get(URL, PARAMS)
 print(r.text)"""
+
+URL = 'https://us-central1-playlist-to-concert.cloudfunctions.net/get_all_concerts'
+PARAMS = {'playlist_id': '7MbjdEGQQ5hEtTyWEzjX63',
+          'city': 'Toronto'
+          }
+r = requests.get(URL, PARAMS)
+print(r.text)
 
 
 if __name__ == "__main__":

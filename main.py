@@ -3,6 +3,7 @@ This will be the file containing my cloud functions.
 """
 from flask import Request
 from model import playlist_data, concert_data
+import json
 
 
 def get_all_concerts(request: Request):
@@ -20,7 +21,8 @@ def get_all_concerts(request: Request):
 
     for artist in artists:
         concerts.append(concert_data.get_event_key_city(artist, city))
-    return {'concerts': concerts}
+
+    return {'concerts': artists_with_shows(concerts)}
 
 
 def get_concert(request: Request):
@@ -31,3 +33,16 @@ def get_concert(request: Request):
     """
     concert_id = request.args['concert_id']
     pass
+
+
+def artists_with_shows(concerts: json) -> list:
+    """ Return a list containing artists with upcoming concerts
+
+    :param concerts: A list containing info for all artists.
+    :return: List containing concert info.
+    """
+    shows = []
+    for concert in concerts:
+        if len(concert) > 2:
+            shows.append(concert)
+    return shows
