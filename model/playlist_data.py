@@ -4,9 +4,7 @@ All the Spotify stuff is handled in here.
 import requests
 
 URL = "https://api.spotify.com/v1/playlists/"
-ACC_TOKEN = 'BQBVLwLEeHYZgmUSdWJeurG_d7W0j6Edwd1ICM-Nxs_sLmLjdQXzkEoicB7bAk' \
-            'r3H9xKWqX2j0kiKEZkMYbawq_GDGDTFoH0J0e2vw7LLBiBz2_dcd0JM5kEAGZA' \
-            'xk89hGbfvRb1Nn75H9IPVepNAcif1i37PoDfXA'
+ACC_TOKEN = 'BQCIsfp8kNFk7ZaEKfGH5pbsEZ7KvY6RhHmgGjq-SuJYhwQB5APGE_1UZIPSFRvNlYqoH9Z4ll-WekJv3dGCPb8G-jPE7GsmOQ-a9VE4jyTT1AjSx3KEG3VHJ9rU4r5efo3x10AfwEmjbdnvDKDgvSuhNiD7-mg4lQ'
 
 
 def get_artist_names(playlist_id: str) -> list:
