@@ -7,7 +7,7 @@ import json
 
 
 def get_all_concerts(request: Request):
-    """ Return a list of all concerts in the playlist with the given id.
+    """ Return a dict of all concerts in the playlist with the given id.
 
     :param request: flask.Request object.
     :return: A json object containing the concerts of all artists in the playlist.
@@ -26,16 +26,35 @@ def get_all_concerts(request: Request):
 
 
 def get_concert(request: Request):
-    """ Return all the business owners' unique ids.
+    """ Return a concert's data based on that concert's id.
 
     :param request: flask.Request object.
-    :return: Comma separated string of unique ids.
+    :return: A json object containing the concert data.
     """
     concert_id = request.args['concert_id']
     pass
 
 
-def artists_with_shows(concerts: json) -> list:
+def get_concerts_filtered(request: Request):
+    """ Return a dict of all concerts based on the given filters.
+
+    :param request: flask.Request object.
+    :return: A json object containing the concert data.
+    """
+    playlist_id = request.args['playlist_id']
+
+    artists = playlist_data.get_artist_names(playlist_id)
+    concerts = []
+    search_dict = request.args
+
+    for artist in artists:
+        search_dict['keyword'] = artist
+        concerts.append(concert_data.get_event_key_city(search_dict))
+
+    return {'concerts': artists_with_shows(concerts)}
+
+
+def artists_with_shows(concerts: list) -> list:
     """ Return a list containing artists with upcoming concerts
 
     :param concerts: A list containing info for all artists.
@@ -43,7 +62,7 @@ def artists_with_shows(concerts: json) -> list:
     """
     shows = []
     for concert in concerts:
-        if len(concerts) > 0:
+        if '_embedded' in concert:
             shows.append(concert)
     return shows
 
@@ -68,6 +87,26 @@ def get_all_concerts_test(request: dict):
     return {'concerts': artists_with_shows(concerts)}
 
 
+def get_concerts_filtered_test(request: dict):
+    """ Return a dict of all concerts based on the given filters.
+
+    :param request: flask.Request object.
+    :return: A json object containing the concert data.
+    """
+    playlist_id = request['playlist_id']
+
+    artists = playlist_data.get_artist_names(playlist_id)
+    concerts = []
+    search_dict = request
+
+    for artist in artists:
+        search_dict['keyword'] = artist
+        concerts.append(concert_data.get_event_all_filters(search_dict))
+
+    return {'concerts': artists_with_shows(concerts)}
+
+
 if __name__ == '__main__':
     # Test the HTTP endpoints here
-    print(get_all_concerts_test({'playlist_id': '37i9dQZF1DWYkaDif7Ztbp', 'city': 'Toronto'}))
+    # print(get_all_concerts_test({'playlist_id': '6lrx56m5B3afuYuCKdf2i9', 'city': 'Toronto'}))
+    print(get_concerts_filtered_test({'playlist_id': '6lrx56m5B3afuYuCKdf2i9', 'city': 'Toronto'}))

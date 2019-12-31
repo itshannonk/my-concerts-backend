@@ -5,7 +5,11 @@ import ticketpy, json
 import requests
 API_KEY = 'k2zkHLSGtq9fYAsPhysiijSpxn3GGkNh'
 
-URL = 'http://app.ticketmaster.com//discovery/v2/events.json?keyword=Dijon&apikey=k2zkHLSGtq9fYAsPhysiijSpxn3GGkNh'
+URL = 'http://app.ticketmaster.com//discovery/v2/events.json?' \
+      'keyword=Dijon&apikey=k2zkHLSGtq9fYAsPhysiijSpxn3GGkNh&' \
+      'localStartDateTime=2020-01-30T00:00:00,2020-02-28T23:59:00'
+      # 'city=Toronto&'
+                         # 2020-07-08T14:00:00,2020-08-01T14:00:00
 r = requests.get(URL)
 data = r.json()
 print(data)
