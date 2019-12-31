@@ -49,7 +49,7 @@ def get_concerts_filtered(request: Request):
 
     for artist in artists:
         search_dict['keyword'] = artist
-        concerts.append(concert_data.get_event_key_city(search_dict))
+        concerts.append(concert_data.get_event_all_filters(search_dict))
 
     return {'concerts': artists_with_shows(concerts)}
 
