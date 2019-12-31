@@ -45,7 +45,7 @@ def get_concerts_filtered(request: Request):
 
     artists = playlist_data.get_artist_names(playlist_id)
     concerts = []
-    search_dict = request.args
+    search_dict = request.args.to_dict()
 
     for artist in artists:
         search_dict['keyword'] = artist
